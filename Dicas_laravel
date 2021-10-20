@@ -1,0 +1,11 @@
+Para executar todas as suas migrações pendentes: php artisan migrate
+
+Se você gostaria de ver quais migrações foram executadas até agora: php artisan migrate:status
+
+Revertendo migrações:php artisan migrate:rollback
+
+reverterá todas as migrações:php artisan migrate:reset
+
+Reverter e migrar e rodar todas as seeds usando um único comando: php artisan migrate:refresh --seed
+
+Eliminar todas as tabelas e migrar: php artisan migrate:fresh --seed

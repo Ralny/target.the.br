@@ -1,0 +1,223 @@
+ETAPAS PARA CONSTRUÇÕES LARAVEL-LIVEWIRE
+
+	## PADRAO DE NOMECLATURA UTILIZADO NO PROJETO ##
+
+	O padrão de nomenclatura é: {Verb}{Subject}{Type}onde:
+
+	Verb: ação sendo executada
+	Subject: recurso sendo modificado / acessado
+	Type: tipo de arquivo (controlador, solicitação, visualização, teste, etc)
+
+    * Modelos Laravel devem ser nomeados como Singulares
+    * Nomear os componentes Livewire no plural
+
+	## Convenções padrão
+	Index: lista de recursos
+	Show: veja um único recurso
+	Create: exibe o formulário para criar um novo recurso
+	Store: crie o novo recurso
+	Edit: exibe o formulário para editar um recurso
+	Update: atualiza o recurso
+	Delete: apaga um recurso
+	Restore: restaura um recurso
+	Sync: sincronizar um recurso
+	Provision: provisionar um recurso
+	Duplicate: duplicar um recurso
+
+	Exemplos dessa abordagem em vários endpoints diferentes:
+
+	* Criação de um novo usuário
+		CreateUserController: mostra o formulário para criar um novo usuário
+		CreateUserTest: testes que afirmam que o formulário é exibido corretamente
+	* Armazenamento de um novo usuário
+		StoreUserController: armazena os novos dados do usuário no banco de dados
+		StoreUserRequest: solicitação de classe para validar o usuário enviado ao armazenar um novo usuário
+		StoreUserTest: testes para garantir que um novo usuário pode ser salvo, validação está correta, autorização / permissões estão corretas
+	* Sincronizando postagens com terceiros
+		SyncPostsController: sincroniza as postagens com o terceiro
+		SyncPostsRequest: valida a entrada para sincronizar as postagens está correto
+		SyncPostsTest: testes para garantir que os posts sincronizam corretamente, os dados de entrada são validados, as autorizações / permissões estão corretas
+
+
+CRIAÇÃO DE UM NOVO COMPONENTE  LARAVEL-LIVEWIRE
+
+Etapa 1 - Create Model and Migration:
+php artisan make:model Category -m
+	*-m  este argumento criará Migração em Comando Único.
+
+	Agora, abra o arquivo de migração da categoria do database/migration   e substitua o código na   função up () :
+
+	public function up()
+	{
+    		Schema::create('categories', function (Blueprint $table) {
+        		$table->id();
+        		$table->string('name')->nullable();
+        		$table->text('description')->nullable();
+        		$table->timestamps();
+    		});
+	}
+
+	Migre o banco de dados usando o seguinte comando:
+	php artisan migrate
+
+	Agora, abra o modelo Category.php em  app/Models  e atualize o código no   modelo Category.php :
+
+	namespace App\Models;
+
+    use Illuminate\Database\Eloquent\Factories\HasFactory;
+    use Illuminate\Database\Eloquent\Model;
+
+    class Category extends Model
+    {
+        use HasFactory;
+
+        protected $fillable = [
+            'name', 'description'
+        ];
+
+        public $timestamps = true;
+    }
+
+Etapa 2: Criar componente Livewire e visualizar
+    Execute o comando abaixo para criar uma visualização e componente livewire.
+    php artisan make:livewire category
+
+    Depois de executar este comando, você encontrará dois arquivos no seguinte caminho  app / Http / Livewire / Contact.php  e  resources / views / livewire / contact.blade.php
+
+    Agora, abra app \ Http \ Livewire \ Category.php e atualize o seguinte código nesse arquivo:
+
+    namespace App\Http\Livewire;
+
+use Livewire\Component;
+use App\Models\Category as Categories;
+
+class Category extends Component
+{
+    public $categories, $name, $description, $category_id;
+    public $updateCategory = false;
+
+    protected $listeners = [
+        'deleteCategory'=>'destroy'
+    ];
+
+    // Validation Rules
+    protected $rules = [
+        'name'=>'required',
+        'description'=>'required'
+    ];
+
+    public function render()
+    {
+        $this->categories = Categories::select('id','name','description')->get();
+        return view('livewire.category');
+    }
+
+    public function resetFields(){
+        $this->name = '';
+        $this->description = '';
+    }
+
+    public function store(){
+
+        // Validate Form Request
+        $this->validate();
+
+        try{
+            // Create Category
+            Categories::create([
+                'name'=>$this->name,
+                'description'=>$this->description
+            ]);
+
+            // Set Flash Message
+            session()->flash('success','Category Created Successfully!!');
+
+            // Reset Form Fields After Creating Category
+            $this->resetFields();
+        }catch(\Exception $e){
+            // Set Flash Message
+            session()->flash('error','Something goes wrong while creating category!!');
+
+            // Reset Form Fields After Creating Category
+            $this->resetFields();
+        }
+    }
+
+    public function edit($id){
+        $category = Categories::findOrFail($id);
+        $this->name = $category->name;
+        $this->description = $category->description;
+        $this->category_id = $category->id;
+        $this->updateCategory = true;
+    }
+
+    public function cancel()
+    {
+        $this->updateCategory = false;
+        $this->resetFields();
+    }
+
+    public function update(){
+
+        // Validate request
+        $this->validate();
+
+        try{
+
+            // Update category
+            Categories::find($this->category_id)->fill([
+                'name'=>$this->name,
+                'description'=>$this->description
+            ])->save();
+
+            session()->flash('success','Category Updated Successfully!!');
+
+            $this->cancel();
+        }catch(\Exception $e){
+            session()->flash('error','Something goes wrong while updating category!!');
+            $this->cancel();
+        }
+    }
+
+    public function destroy($id){
+        try{
+            Categories::find($id)->delete();
+            session()->flash('success',"Category Deleted Successfully!!");
+        }catch(\Exception $e){
+            session()->flash('error',"Something goes wrong while deleting category!!");
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+php artisan make:livewire categorias-list
+php artisan make:model Flight -mfs - [migration, factory, seeder]
