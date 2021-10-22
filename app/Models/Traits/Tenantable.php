@@ -3,14 +3,14 @@
 namespace App\Models\Traits;
 
 use App\Models\Tenant;
-use App\Scopes\TenantScope;
+use App\Scopes\TenantScopes;
 
-trait TenantsTable
+trait Tenantable
 {
     protected static function bootTenantable()
     {
 
-        static::addGlobalScope(new TenantScope);
+        static::addGlobalScope(new TenantScopes);
 
         if(checkTenantId())
         {
