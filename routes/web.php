@@ -23,7 +23,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/dashboard', 'PagesController@index')->name('dashboard');
 
     Route::get('/users', UserList::class);
-    //Route::get('/users/cadastro', UserForm::class);
 
     //Financeiro
     Route::get('/financeiro/categorias', FinanceiroCategoriaReceita::class);
