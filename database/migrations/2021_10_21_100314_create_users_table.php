@@ -17,9 +17,9 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->foreignId('tenant_id')->nullable()->constrained();
             $table->string('name');
-            $table->string('last_name');
-            $table->string('user_name');
-            $table->string('contact_phone');
+            $table->string('last_name')->nullable();
+            $table->string('user_name')->nullable();
+            $table->string('contact_phone')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
