@@ -23,7 +23,7 @@ class UserTableSeeder extends Seeder
         $this->createAdmins();
 
         //Cria usuários demo (dados faker)
-        //$this->createUsers();
+]        //$this->createUsers();
     }
 
     private function createAdmins()
