@@ -23,7 +23,7 @@ class UserTableSeeder extends Seeder
         $this->createAdmins();
 
         //Cria usuários demo (dados faker)
-        $this->createUsers();
+        //$this->createUsers();
     }
 
     private function createAdmins()
@@ -52,6 +52,7 @@ class UserTableSeeder extends Seeder
 
     }
 
+    /*
     private function createUsers()
     {
         User::factory(30)->create();
@@ -59,5 +60,6 @@ class UserTableSeeder extends Seeder
         //Exibi uma informação no console durante o processo de seed
         $this->command->info('Users "fakes" created');
     }
+    */
 
 }
