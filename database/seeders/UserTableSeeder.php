@@ -21,34 +21,20 @@ class UserTableSeeder extends Seeder
 
         //Cria usuários admins (dados controlados)
         $this->createAdmins();
-
-        //Cria usuários demo (dados faker)
-]        //$this->createUsers();
     }
 
     private function createAdmins()
     {
         User::create([
             'name' => 'Administrador',
-            'email' => 'admin@lance.com.br',
+            'email' => 'webmaster@target.the.br',
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
         ]);
 
         //Exibi uma informação no console durante o processo de seed
-        $this->command->info('User admin@lance.com.br created');
-
-        User::create([
-            'name' => 'Ralny Andrade',
-            'email' => 'ralnyandrade@gmail.com',
-            'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'remember_token' => Str::random(10),
-        ]);
-
-        //Exibi uma informação no console durante o processo de seed
-        $this->command->info('User ralnyandrade@gmail.com created');
+        $this->command->info('User webmaster@target.the.br created! Pass: password');
 
     }
 
