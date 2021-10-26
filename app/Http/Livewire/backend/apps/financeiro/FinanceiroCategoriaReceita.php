@@ -67,13 +67,12 @@ class FinanceiroCategoriaReceita extends Component
     {
         $messages = [
             'desc_categoria.required'  => 'O campo Descrição é obrigatório.',
-            'id_tipo_dre.required'     => 'O campo Associar com DRE é obrigatório.'
         ];
 
         $validatedData = Validator::make($this->data, [
             'desc_categoria'        => 'required',
             'id_categoria_receita'  => 'nullable',
-            'id_tipo_dre'           => 'required|not_in:0'
+            'id_tipo_dre'           => 'nullable'
         ], $messages)->validate();
 
         Categorias::create($validatedData);
@@ -100,13 +99,12 @@ class FinanceiroCategoriaReceita extends Component
     {
         $messages = [
             'desc_categoria.required'  => 'O campo Descrição é obrigatório.',
-            'id_tipo_dre.required'     => 'O campo Associar com DRE é obrigatório.'
         ];
 
         $validatedData = Validator::make($this->data, [
             'desc_categoria'        => 'required',
             'id_categoria_receita'  => 'nullable',
-            'id_tipo_dre'           => 'required|not_in:0'
+            'id_tipo_dre'           => 'nullable'
         ], $messages)->validate();
 
         $this->row->update($validatedData);

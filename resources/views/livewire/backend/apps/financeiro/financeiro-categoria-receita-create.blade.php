@@ -63,16 +63,11 @@
                                     <div wire:ignore>
                                         <select wire:model.defer="data.id_tipo_dre" class="form-control"
                                             data-pharaonic="select2" data-component-id="{{ $this->id }}">
-                                            <option value="0">Selecione</option>
                                             @foreach ($lista_DRE as $dre)
                                                 <option value="{{ $dre->id }}">{{ $dre->desc_tipo_dre }}</option>
                                             @endforeach
                                         </select>
                                     </div>
-
-                                @error('id_tipo_dre')
-                                    <span class="text-danger">{{ $message }}</span>
-                                @enderror
                             </div>
 
                         </div>
