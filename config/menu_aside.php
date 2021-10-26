@@ -180,7 +180,7 @@ return [
             'submenu' => [
                 [
                     'title' => 'Categorias',
-                    'page' => 'layout/subheader/toolbar'
+                    'page' => 'financeiro/categorias'
                 ]
             ]
         ],
