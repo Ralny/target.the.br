@@ -15,6 +15,7 @@ class CreateFinanceiroCategoriaReceitasTable extends Migration
     {
         Schema::create('financeiro_categoria_receitas', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->foreignId('tenant_id')->nullable()->constrained();
             $table->string('desc_categoria');
             $table->unsignedBigInteger('id_categoria_receita')->nullable();
             $table->unsignedBigInteger('id_tipo_dre')->nullable();

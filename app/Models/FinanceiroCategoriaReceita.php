@@ -2,19 +2,17 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Traits\Tenantable;
 use Illuminate\Database\Eloquent\Model;
 
 class FinanceiroCategoriaReceita extends Model
 {
-    use HasFactory;
+    use Tenantable;
     /**
      * Campos que podem ser atribuídos em massa.
      */
     protected $fillable = [
-        'desc_categoria',
-        'id_categoria_receita',
-        'id_tipo_dre'
+        'tenant_id', 'desc_categoria', 'id_categoria_receita', 'id_tipo_dre'
     ];
 
     protected $hidden = [
