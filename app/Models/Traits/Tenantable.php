@@ -3,7 +3,7 @@
 namespace App\Models\Traits;
 
 use App\Models\Tenant;
-use App\Scopes\TenantScope;
+,use App\Scopes\TenantScope;
 
 trait Tenantable
 {
