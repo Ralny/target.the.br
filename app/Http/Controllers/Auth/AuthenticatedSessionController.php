@@ -17,11 +17,7 @@ class AuthenticatedSessionController extends Controller
      */
     public function create()
     {
-        $page_title = "Simplifique a Gestão do seu Negócio";
-
-        $page_description = "Em uma única plataforma: controle financeiro, fluxo de caixa, emissão de notas fiscais, boletos e muito mais.";
-
-        return view('auth.login',  compact('page_title','page_description'));
+        return view('auth.login');
     }
 
     /**

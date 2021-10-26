@@ -13,7 +13,9 @@ return [
     |
     */
 
-    'name' => 'Target',
+    'name' => 'Target | Simplifique a Gestão do seu Negócio',
+
+    'description' => 'Em uma única plataforma: controle financeiro, fluxo de caixa, emissão de notas fiscais, boletos e muito mais.',
 
     /*
     |--------------------------------------------------------------------------
