@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Scope;
 
-Class TenantScopes implements Scope
+Class TenantScope implements Scope
 {
     public function apply(Builder $builder, Model $model)
     {
