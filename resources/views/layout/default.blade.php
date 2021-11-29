@@ -62,11 +62,11 @@
 
     {{-- livewire Scripts JS --}}
     @livewireScripts
+    {{-- Scripts Inline --}}
+    @stack('scripts')
 
     {{-- Sweet2Alert2 - https://sweetalert2.github.io/ + https://livewire-alert.jantinnerezo.com --}}
     <x-livewire-alert::scripts />
-    {{-- Pharaonic - https://pharaonic.io/package/3-livewire/27-select2 --}}
-    <x:pharaonic-select2::scripts />
 
     <script>
         window.addEventListener('show-form', event => {
@@ -77,26 +77,6 @@
             $('#modalForm').modal('hide');
         });
     </script>
-
-<script>
-    //Se você estiver renderizando um Select2 dentro de um modal (Bootstrap 3.x) que ainda não foi renderizado ou aberto,
-    //pode ser necessário vincular ao shown.bs.modal evento:
-
-    document.addEventListener('livewire:load', function() {
-
-        $('body').on('shown.bs.modal', '.modal', function() {
-            $(this).find('select').each(function() {
-                var dropdownParent = $(document.body);
-                if ($(this).parents('.modal.in:first').length !== 0)
-                    dropdownParent = $(this).parents('.modal.in:first');
-                $(this).select2({
-                    dropdownParent: dropdownParent
-                });
-            });
-        });
-
-    })
-</script>
 
     {{-- Includable JS --}}
     @yield('scripts')
