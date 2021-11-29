@@ -20,24 +20,20 @@ class FinanceiroTipoDRE extends Seeder
 
     private function createTipoDreDefault()
     {
-        DB::table('financeiro_tipo_dre')->insert([
-            'desc_tipo_dre' => 'Não mostrar no DRE Gerencial'
+
+        DB::table('financeiro_tipo_dres')->insert([
+            'desc_tipo_dre' => 'Receita de Vendas de Produtos e Serviços'
         ]);
 
-        DB::table('financeiro_tipo_dre')->insert([
-            'desc_tipo_dre' => 'Receita de Vendas de Produtos'
-        ]);
-
-        DB::table('financeiro_tipo_dre')->insert([
+        DB::table('financeiro_tipo_dres')->insert([
             'desc_tipo_dre' => 'Receitas e Rendimentos Financeiros'
         ]);
 
-        DB::table('financeiro_tipo_dre')->insert([
+        DB::table('financeiro_tipo_dres')->insert([
             'desc_tipo_dre' => 'Outras Receitas Não Operacionais'
         ]);
 
         //Exibi uma informação no console durante o processo de seed
-        $this->command->info('Não mostrar no DRE Gerencial created');
         $this->command->info('Receita de Vendas de Produtos created');
         $this->command->info('Receitas e Rendimentos Financeiros created');
         $this->command->info('Outras Receitas Não Operacionais created');
