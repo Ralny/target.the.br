@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PagesController;
 use App\Http\Livewire\Backend\Apps\User\UserList;
-use App\Http\Livewire\Backend\Apps\Financeiro\FinanceiroCategoriaReceita;
+use App\Http\Livewire\Backend\Apps\Financeiro\FinanceiroCategoria;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,7 +25,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/users', [UserList::class, '__invoke'])->name('users');
 
     //Financeiro
-    Route::get('/financeiro/categorias', [FinanceiroCategoriaReceita::class, '__invoke'])->name('categorias');
+    Route::get('/financeiro/categorias', [FinanceiroCategoria::class, '__invoke'])->name('categorias');
 
     // Quick search dummy route to display html elements in search dropdown (header search)
     Route::get('/quick-search', 'PagesController@quickSearch')->name('quick-search');
