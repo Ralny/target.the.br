@@ -20,7 +20,7 @@
 @if ($sub_categories->categories)
     @if (count($sub_categories->categories) > 0)
         @foreach ($sub_categories->categories as $subCategories)
-        @include('livewire.backend.apps.financeiro.financeiro-categoria-receita-list-tr',
+        @include('livewire.backend.apps.financeiro.financeiro-categoria-list-tr',
         ['sub_categories' => $subCategories])
         @endforeach
     @endif

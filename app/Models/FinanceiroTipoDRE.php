@@ -9,7 +9,7 @@ class FinanceiroTipoDRE extends Model
 {
     use HasFactory;
 
-    protected $table = 'financeiro_tipo_dre';
+    protected $table = 'financeiro_tipo_dres';
 
      /**
      * Campos que podem ser atribuídos em massa.

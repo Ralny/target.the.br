@@ -441,7 +441,7 @@
 
 
         <!--begin::Modal Create-->
-        @include('livewire.backend.apps.financeiro.financeiro-categoria-receita-create')
+        @include('livewire.backend.apps.financeiro.financeiro-categoria-form')
         <!--end::Modal Create-->
 
         <!--end:: content-->

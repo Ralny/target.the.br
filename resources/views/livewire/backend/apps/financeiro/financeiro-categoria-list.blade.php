@@ -24,7 +24,8 @@
                                  * Usado para para ajustar o layout, melhora a visualização do Tituto com o primeiro resultado,
                                  *  ela assumi esse valor somente no primeiro loop, depois recebe ''
                                  * */
-                            $is_first = 'border: 0px;'; @endphp
+                            $is_first = 'border: 0px;';
+                            @endphp
                             @if (count($categories) > 0)
                                 @foreach ($categories as $category)
 
@@ -55,7 +56,7 @@
                                     @if (count($category->childCategories))
                                         @foreach ($category->childCategories as $subCategories)
 
-                                            @include('livewire.backend.apps.financeiro.financeiro-categoria-receita-list-tr',
+                                            @include('livewire.backend.apps.financeiro.financeiro-categoria-list-tr',
                                             ['sub_categories' => $subCategories])
 
                                         @endforeach
@@ -69,9 +70,8 @@
             </div>
 
             <!--begin::Modal Create-->
-            @include('livewire.backend.apps.financeiro.financeiro-categoria-receita-create')
+            @include('livewire.backend.apps.financeiro.financeiro-categoria-form')
             <!--end::Modal Create-->
-
         </div>
     </div>
 </div>
@@ -82,3 +82,6 @@
     <script src="{{ asset('js/pages/crud/forms/widgets/select2.js?v=7.0.6') }}"></script>
 @endsection
 
+<script>
+
+</script>

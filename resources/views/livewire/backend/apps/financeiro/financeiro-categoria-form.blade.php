@@ -18,7 +18,6 @@
                 <div class="modal-body">
                     <div class="card-body">
                         <div class="form-group row">
-
                             <div class="col-lg-6">
                                 <label>Descrição: <span class="text-danger"> * </span></label>
                                 <input type="text" wire:model.defer="data.desc_categoria"
@@ -27,22 +26,21 @@
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
-
                             <div class="col-lg-6">
                                 @if (count($categories) > 0)
                                     <label>Aparecer dentro de: <i wire:ignore class="fas fa-info-circle"
                                             data-toggle="tooltip" data-theme="dark"
                                             title="Indica a hierarquia da categoria. Para mover uma categoria-mãe é necessário transferir todas as suas categorias-filhas."></i></label>
                                     <div wire:ignore>
-                                        <select wire:model.defer="data.id_categoria_receita" class="form-control"
-                                            data-pharaonic="select2" data-component-id="{{ $this->id }}">
-                                            <option value=" ">Selecione</option>
+                                        <select wire:model.defer="data.financeiro_categoria_id"
+                                            id="financeiro_categoria_id" class="form-control">
                                             @foreach ($categories as $category)
+                                                <option label="Label"></option>
                                                 <option value="{{ $category->id }}">{{ $category->desc_categoria }}
                                                 </option>
                                                 @if (count($category->childCategories))
                                                     @foreach ($category->childCategories as $subCategories)
-                                                        @include('livewire.backend.apps.financeiro.financeiro-categoria-receita-select-sub_categorias',
+                                                        @include('livewire.backend.apps.financeiro.financeiro-categoria-select-sub_categorias',
                                                         ['sub_categories' => $subCategories])
                                                     @endforeach
                                                 @endif
@@ -51,25 +49,22 @@
                                     </div>
                                 @endif
                             </div>
-
                         </div>
-
                         <div class="form-group row">
-
                             <div class="col-lg-6">
                                 <label>Associar com DRE: <i wire:ignore class="fas fa-info-circle" data-toggle="tooltip"
                                         data-theme="dark"
                                         title="Indica a relação da categoria financeira com o Demonstrativo de Resultado do Exercício (DRE), relatório que exibe lucro ou prejuízo."></i></label>
-                                    <div wire:ignore>
-                                        <select wire:model.defer="data.id_tipo_dre" class="form-control"
-                                            data-pharaonic="select2" data-component-id="{{ $this->id }}">
-                                            @foreach ($lista_DRE as $dre)
-                                                <option value="{{ $dre->id }}">{{ $dre->desc_tipo_dre }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
+                                <div wire:ignore>
+                                    <select wire:model.defer="data.financeiro_tipo_dre_id" class="form-control"
+                                        id="financeiro_tipo_dre_id">
+                                        <option label="Label"></option>
+                                        @foreach ($lista_DRE as $dre)
+                                            <option value="{{ $dre->id }}">{{ $dre->desc_tipo_dre }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
-
                         </div>
                     </div>
 
@@ -89,3 +84,40 @@
         </form>
     </div>
 </div>
+
+
+@push('scripts')
+    <script>
+        document.addEventListener('livewire:load', function() {
+
+            $('body').on('shown.bs.modal', '.modal', function() {
+                $(this).find('#financeiro_categoria_id').each(function() {
+                    var dropdownParent = $(document.body);
+                    if ($(this).parents('.modal.in:first').length !== 0)
+                        dropdownParent = $(this).parents('.modal.in:first');
+                    $(this).select2({
+                        dropdownParent: dropdownParent,
+                        placeholder: "Receitas",
+                    });
+                });
+            });
+
+        })
+
+        document.addEventListener('livewire:load', function() {
+
+            $('body').on('shown.bs.modal', '.modal', function() {
+                $(this).find('#financeiro_tipo_dre_id').each(function() {
+                    var dropdownParent = $(document.body);
+                    if ($(this).parents('.modal.in:first').length !== 0)
+                        dropdownParent = $(this).parents('.modal.in:first');
+                    $(this).select2({
+                        dropdownParent: dropdownParent,
+                        placeholder: "Não Mostrar no DRE Gerencial",
+                    });
+                });
+            });
+
+        })
+    </script>
+@endpush

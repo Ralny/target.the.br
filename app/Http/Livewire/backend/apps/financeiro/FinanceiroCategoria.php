@@ -1,13 +1,13 @@
 <?php
-//Comencando aqui
+
 namespace App\Http\Livewire\Backend\Apps\Financeiro;
 
-use App\Models\FinanceiroCategoriaReceita as Categorias;
+use App\Models\FinanceiroCategoria as Categorias;
 use App\Models\FinanceiroTipoDRE;
 use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
 
-class FinanceiroCategoriaReceita extends Component
+class FinanceiroCategoria extends Component
 {
 
     public $data = [];
@@ -20,14 +20,14 @@ class FinanceiroCategoriaReceita extends Component
 
     public function render()
     {
-        $categories = Categorias::whereNull('id_categoria_receita')
+        $categories = Categorias::whereNull('financeiro_categoria_id')
             ->with('childCategories')
-            ->orderby('id_categoria_receita', 'asc')
+            ->orderby('financeiro_categoria_id', 'asc')
             ->get();
 
         $lista_DRE = FinanceiroTipoDRE::get();
 
-        $view = (count($categories) > 0) ? "financeiro-categoria-receita-list" : "financeiro-categoria-receita-index";
+        $view = (count($categories) > 0) ? "financeiro-categoria-list" : "financeiro-categoria-index";
 
         return view(
             'livewire.backend.apps.financeiro.' . $view . '',
@@ -40,9 +40,9 @@ class FinanceiroCategoriaReceita extends Component
     //Atualizar esse metodo, nao esta restando o select2
     public function resetInputFields()
     {
-        $this->desc_categoria       = '';
-        $this->id_categoria_receita = '';
-        $this->id_tipo_dre          = '';
+        $this->data['desc_categoria'] = '';
+        $this->data['financeiro_categoria_id']   = '';
+        $this->data['financeiro_tipo_dre_id']    = '';
     }
 
     public function openModal()
@@ -65,23 +65,27 @@ class FinanceiroCategoriaReceita extends Component
 
     public function store()
     {
+        //dd($this->data);
+
         $messages = [
             'desc_categoria.required'  => 'O campo Descrição é obrigatório.',
         ];
 
         $validatedData = Validator::make($this->data, [
-            'desc_categoria'        => 'required',
-            'id_categoria_receita'  => 'nullable',
-            'id_tipo_dre'           => 'nullable'
+            'desc_categoria'           => 'required',
+            'financeiro_categoria_id ' => 'nullable|integer',
+            //'financeiro_tipo_dre_id'=>'nullable|integer'
         ], $messages)->validate();
+
+        //dd($this->data);
 
         Categorias::create($validatedData);
 
-        $this->alert('success', 'Categoria cadatrada com sucesso!');
+        $this->resetInputFields();
 
         $this->closeModal();
 
-        $this->resetInputFields();
+        $this->alert('success', 'Categoria cadatrada com sucesso!');
     }
 
     public function edit(Categorias $row)
@@ -102,9 +106,9 @@ class FinanceiroCategoriaReceita extends Component
         ];
 
         $validatedData = Validator::make($this->data, [
-            'desc_categoria'        => 'required',
-            'id_categoria_receita'  => 'nullable',
-            'id_tipo_dre'           => 'nullable'
+            'desc_categoria'=> 'required',
+            'financeiro_categoria_id'  => 'nullable',
+            'financeiro_tipo_dre_id'   => 'nullable'
         ], $messages)->validate();
 
         $this->row->update($validatedData);
@@ -124,6 +128,6 @@ class FinanceiroCategoriaReceita extends Component
 
     public function importarCategoriasPadrao()
     {
-       dd('Realizar implementação');
+    //dd('Realizar implementação');
     }
 }
